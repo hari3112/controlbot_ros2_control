@@ -1,0 +1,51 @@
+<?xml version="1.0" ?>
+<robot name="controlbot_1" xmlns:xacro="http://www.ros.org/wiki/xacro" >
+
+<xacro:property name="body_color" value="Gazebo/Silver" />
+
+
+<gazebo reference="base_link">
+  <material>${body_color}</material>
+  <mu1>.000000000001</mu1>
+  <mu2>.000000000001</mu2>
+  <self_collide>true</self_collide>
+  <gravity>true</gravity>
+</gazebo>
+
+<gazebo reference="wheel_left_link_1">
+  <material>${body_color}</material>
+  <mu1>100000000.0</mu1>
+  <mu2>100000000.0</mu2>
+  <kp>1000000000000.0</kp>
+  <kd>10.0</kd>
+  <minDepth>0.001</minDepth>
+  <maxVel>0.1</maxVel>
+  <fdir1>1 0 0</fdir1>
+  <self_collide>true</self_collide>
+</gazebo>
+
+<gazebo reference="wheel_right_link_1">
+  <material>${body_color}</material>
+  <mu1>100000000.0</mu1>
+  <mu2>100000000.0</mu2>
+  <kp>1000000000000.0</kp>
+  <kd>10.0</kd>
+  <minDepth>0.001</minDepth>
+  <maxVel>0.1</maxVel>
+  <fdir1>1 0 0</fdir1>
+  <self_collide>true</self_collide>
+</gazebo>
+
+<!--<gazebo>
+  <xacro:if value = "$(arg is_ignition)">
+    <plugin filename="ign_ros2_control-system" name="ign_ros2_control::IgnitionROS2ControlPlugin">
+      <parameters>$(find controlbot_controllers)/config/controlbot_controller.yaml</parameters>
+    </plugin>    
+  </xacro:if>
+</gazebo>-->
+<gazebo>
+  <plugin filename="libgazebo_ros2_control.so" name="gazebo_ros2_control">
+    <parameters>$(find controlbot_controllers)/config/controlbot_controller.yaml</parameters>
+  </plugin>
+</gazebo>
+</robot>

@@ -1,0 +1,93 @@
+<?xml version="1.0" ?>
+<robot name="controlbot_1" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+<!--<xacro:arg name="is_ignition" default="true"/>-->
+
+<xacro:include filename="$(find controlbot_1_description)/urdf/materials.xacro" />
+<xacro:include filename="$(find controlbot_1_description)/urdf/controlbot_1.trans" />
+<xacro:include filename="$(find controlbot_1_description)/urdf/controlbot_1.gazebo" />
+<xacro:include filename="$(find controlbot_1_description)/urdf/ros2_control.xacro" />
+<!--link name = "base_footprint"/-->
+<link name="base_link">
+  <inertial>
+    <origin xyz="-0.00025878921542171583 -1.2019562140504203e-05 0.1042321431647874" rpy="0 0 0"/>
+    <mass value="1.1212507191009462"/>
+    <inertia ixx="0.015867" iyy="0.015943" izz="0.014685" ixy="-9e-06" iyz="-2e-06" ixz="0.00016"/>
+  </inertial>
+  <visual>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="file://$(find controlbot_1_description)/meshes/base_link.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="silver"/>
+  </visual>
+  <collision>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="file://$(find controlbot_1_description)/meshes/base_link.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="wheel_left_link_1">
+  <inertial>
+    <origin xyz="7.932439149982429e-10 0.0019140951985954502 -1.079961960581688e-06" rpy="0 0 0"/>
+    <mass value="0.16918711951069407"/>
+    <inertia ixx="0.000207" iyy="0.000378" izz="0.000207" ixy="0.0" iyz="-0.0" ixz="0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="0.065 -0.1587 -0.056" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="file://$(find controlbot_1_description)/meshes/wheel_left_link_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="silver"/>
+  </visual>
+  <collision>
+    <origin xyz="0.065 -0.1587 -0.056" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="file://$(find controlbot_1_description)/meshes/wheel_left_link_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="wheel_right_link_1">
+  <inertial>
+    <origin xyz="7.932412227074082e-10 -0.0019137759272490618 1.062874243652756e-06" rpy="0 0 0"/>
+    <mass value="0.16918711951069396"/>
+    <inertia ixx="0.000207" iyy="0.000378" izz="0.000207" ixy="0.0" iyz="-0.0" ixz="-0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="0.065 0.158689 -0.056" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="file://$(find controlbot_1_description)/meshes/wheel_right_link_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="silver"/>
+  </visual>
+  <collision>
+    <origin xyz="0.065 0.158689 -0.056" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="file://$(find controlbot_1_description)/meshes/wheel_right_link_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<!--<joint name="base_joint" type="fixed">
+  <origin xyz="0.0 0.0 0.056" rpy="0.0 0.0 0.0"/>
+  <parent link="base_footprint"/>
+  <child link="base_link"/>
+</joint>-->
+<joint name="wheel_left_joint" type="continuous">
+  <origin xyz="-0.065 0.1587 0.056" rpy="0 0 0"/>
+  <parent link="base_link"/>
+  <child link="wheel_left_link_1"/>
+  <axis xyz="-0.0 1.0 0.0"/>
+</joint>
+
+<joint name="wheel_right_joint" type="continuous">
+  <origin xyz="-0.065 -0.158689 0.056" rpy="0 0 0"/>
+  <parent link="base_link"/>
+  <child link="wheel_right_link_1"/>
+  <axis xyz="-0.0 1.0 -0.0"/>
+</joint>
+
+</robot>
