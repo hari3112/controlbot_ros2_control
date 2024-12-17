@@ -3,21 +3,20 @@ controller_manager:
     update_rate: 100 # Hz
     use_sim_time: true
 
-    joint_state_broadcaster:
-      type: joint_state_broadcaster/JointStateBroadcaster
-
-    simple_velocity_controller:
-      type: velocity_controllers/JointGroupVelocityController
-
     controlbot_diff_drive_controller:
       type: diff_drive_controller/DiffDriveController
 
+    joint_state_broadcaster:
+      type: joint_state_broadcaster/JointStateBroadcaster
+  
+    simple_velocity_controller:
+      type: velocity_controllers/JointGroupVelocityController
+  
 
-simple_velocity_controller:
-  ros__parameters:
-    joints:
-      - wheel_left_joint
-      - wheel_right_joint
+    
+
+
+
 
 controlbot_diff_drive_controller:
   ros__parameters:
@@ -29,8 +28,9 @@ controlbot_diff_drive_controller:
     pose_covariance_diagonal: [0.001, 0.001, 1.0e-3, 1.0e-3, 1.0e-3, 0.01]
     twist_covariance_diagonal: [0.001, 0.001, 1.0e-3, 1.0e-3, 1.0e-3, 0.01]
 
-    wheel_separation: 0.281
     wheel_radius: 0.056
+    wheel_separation: 0.281
+    
 
     wheel_separation_multiplier: 1.0
     left_wheel_radius_multiplier: 1.0
@@ -60,3 +60,9 @@ controlbot_diff_drive_controller:
         max_acceleration       : 1.5  
         has_jerk_limits        : false
         max_jerk               : 2.5  
+
+simple_velocity_controller:
+  ros__parameters:
+    joints:
+      - wheel_left_joint
+      - wheel_right_joint

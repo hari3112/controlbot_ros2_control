@@ -45,7 +45,7 @@ class SimpleController(Node):
         # Fill the Odometry message with invariant parameters
         self.odom_msg_ = Odometry()
         self.odom_msg_.header.frame_id = "odom"
-        self.odom_msg_.child_frame_id = "base_link"
+        self.odom_msg_.child_frame_id = "base_link_ekf"
         self.odom_msg_.pose.pose.orientation.x = 0.0
         self.odom_msg_.pose.pose.orientation.y = 0.0
         self.odom_msg_.pose.pose.orientation.z = 0.0
@@ -55,7 +55,7 @@ class SimpleController(Node):
         self.br_ = TransformBroadcaster(self)
         self.transform_stamped_ = TransformStamped()
         self.transform_stamped_.header.frame_id = "odom"
-        self.transform_stamped_.child_frame_id = "base_link"
+        self.transform_stamped_.child_frame_id = "base_link_noisy"
 
         self.prev_time_ = self.get_clock().now()
 
@@ -81,7 +81,7 @@ class SimpleController(Node):
         dp_left = msg.position[1] - self.left_wheel_prev_pos_
         dp_right = msg.position[0] - self.right_wheel_prev_pos_
         dt = Time.from_msg(msg.header.stamp) - self.prev_time_
-        self.get_logger().info ("msg_position_1:   %f    and  msg_position 2:   %f" %(msg.position[1],msg.position[0]))
+        #self.get_logger().info ("msg_position_1:   %f    and  msg_position 2:   %f" %(msg.position[1],msg.position[0]))
         # Actualize the prev pose for the next itheration
         self.left_wheel_prev_pos_ = msg.position[1]
         self.right_wheel_prev_pos_ = msg.position[0]

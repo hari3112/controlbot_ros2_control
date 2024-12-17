@@ -6,6 +6,10 @@ from launch.conditions import IfCondition,UnlessCondition
 
 def generate_launch_description():
     
+    use_sim_time_arg = DeclareLaunchArgument(
+        "use_sim_time",
+        default_value="True",
+    )
     using_python_arg=DeclareLaunchArgument(
         "using_python",
         default_value="True"
@@ -21,12 +25,12 @@ def generate_launch_description():
         default_value="0.281"
     )
     
-    using_controlbot_simple_controller_arg=DeclareLaunchArgument(
+    using_simple_controller_arg=DeclareLaunchArgument(
         "using_simple_controller",
         default_value="True"
     )
-    
-    using_controlbot_simple_controller=LaunchConfiguration("using_simple_controller")
+    use_sim_time = LaunchConfiguration("use_sim_time")
+    using_simple_controller=LaunchConfiguration("using_simple_controller")
     using_python=LaunchConfiguration("using_python")
     wheel_radius=LaunchConfiguration("wheel_radius")
     wheel_separation=LaunchConfiguration("wheel_separation")
@@ -37,12 +41,12 @@ def generate_launch_description():
         arguments=[
             "joint_state_broadcaster",
             "--controller-manager",
-            "/controller_manager"
+            "/controller_manager",
         ]
     )
     
     simple_controller=GroupAction(
-        condition=IfCondition(using_controlbot_simple_controller),
+        condition=IfCondition(using_simple_controller),
         actions=[
             Node(
                 package="controller_manager",
@@ -56,10 +60,21 @@ def generate_launch_description():
             Node(
                 package="controlbot_controllers",
                 executable="simple_controller.py",
-                parameters=[{"wheel_radius":wheel_radius},
-                            {"wheel_separation":wheel_separation}],
+                parameters=[{"wheel_radius":wheel_radius,
+                             "wheel_separation":wheel_separation,
+                             "use_sim_time": use_sim_time}],
                 condition=IfCondition(using_python)
+            ),
+            Node(
+                package="controlbot_controllers",
+                executable="simple_controller",
+                parameters=[
+                    {"wheel_radius": wheel_radius,
+                    "wheel_separation": wheel_separation,
+                    "use_sim_time": use_sim_time}],
+                condition=UnlessCondition(using_python),
             )
+            
     
         ]
     )
@@ -72,7 +87,7 @@ def generate_launch_description():
                    "--controller-manager", 
                    "/controller_manager"
         ],
-        condition=UnlessCondition(using_controlbot_simple_controller),
+        condition=UnlessCondition(using_simple_controller),
     )
     
     
@@ -80,10 +95,11 @@ def generate_launch_description():
     return LaunchDescription([
         using_python_arg,
         wheel_radius_arg,
+        use_sim_time_arg,
         wheel_separation_arg,
         joint_state_broadcaster_spawner,
         simple_controller,
-        using_controlbot_simple_controller_arg,
+        using_simple_controller_arg,
         controlbot_controller_spawner
     ]
     )
