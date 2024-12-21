@@ -1,4 +1,4 @@
-#Optimizing Trajectory Tracking Efficiency in Two-Wheel Drive Vehicles     
+Optimizing Trajectory Tracking Efficiency in Two-Wheel Drive Vehicles     
 
 
 Designing a robust control system to enhance trajectory-following efficiency and autonomous navigation with advanced 
