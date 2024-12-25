@@ -24,7 +24,8 @@ setup(
             'simple_turtlesim_kinematics=controlbot_py.simple_turtlesim_kinematics:main',
             'simple_tf_kinematics=controlbot_py.simple_tf_kinematics:main',
             'simple_service_server=controlbot_py.simple_service_server:main',
-            'simple_service_client=controlbot_py.simple_service_client:main'
+            'simple_service_client=controlbot_py.simple_service_client:main',
+            'simple_lifecycle_node=controlbot_py.simple_lifecycle_node:main'
         ],
     },
 )

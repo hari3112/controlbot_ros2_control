@@ -1,6 +1,9 @@
 <?xml version="1.0" ?>
 <robot name="controlbot_1_imu" xmlns:xacro="http://www.ros.org/wiki/xacro">
 
+<xacro:arg name="is_sim" default="true"/>
+
+
 <xacro:include filename="$(find controlbot_1_imu_description)/urdf/materials.xacro" />
 <xacro:include filename="$(find controlbot_1_imu_description)/urdf/controlbot_1_imu.trans" />
 <xacro:include filename="$(find controlbot_1_imu_description)/urdf/controlbot_1_imu.gazebo" />
