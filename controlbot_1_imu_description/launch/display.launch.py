@@ -24,14 +24,7 @@ def generate_launch_description():
 
     show_gui = LaunchConfiguration('gui')
 
-    robot_state_publisher_node = Node(
-        package='robot_state_publisher',
-        executable='robot_state_publisher',
-        name='robot_state_publisher',
-        parameters=[
-            {'robot_description': robot_urdf}
-        ]
-    )
+    
 
     joint_state_publisher_node = Node(
         condition=UnlessCondition(show_gui),
@@ -57,7 +50,7 @@ def generate_launch_description():
 
     return LaunchDescription([
         gui_arg,
-        robot_state_publisher_node,
+        
         joint_state_publisher_node,
         joint_state_publisher_gui_node,
         rviz_node

@@ -3,22 +3,20 @@
 
 <xacro:property name="body_color" value="Gazebo/Silver" />
 
-<gazebo>
-  <plugin name="control" filename="libgazebo_ros_control.so"/>
-</gazebo>
+
 <gazebo reference="base_link">
   <material>${body_color}</material>
-  <mu1>0.000000000001</mu1>
-  <mu2>0.000000000001</mu2>
+  <mu1>100</mu1>
+  <mu2>100</mu2>
   <self_collide>true</self_collide>
   <gravity>true</gravity>
 </gazebo>
 
 <gazebo reference="wheel_left_link_1">
   <material>${body_color}</material>
-  <mu1>1000000000000000.0</mu1>
-  <mu2>1000000000000000.0</mu2>
-  <kp>1000000000000.0</kp>
+  <mu1>10000.0</mu1>
+  <mu2>10000.0</mu2>
+  <kp>10000.0</kp>
   <kd>10.0</kd>
   <minDepth>0.001</minDepth>
   <maxVel>0.1</maxVel>
@@ -28,9 +26,9 @@
 
 <gazebo reference="wheel_right_link_1">
   <material>${body_color}</material>
-  <mu1>1000000000000000.0</mu1>
-  <mu2>1000000000000000.0</mu2>
-  <kp>1000000000000.0</kp>
+  <mu1>10000.0</mu1>
+  <mu2>10000.0</mu2>
+  <kp>10000.0</kp>
   <kd>10.0</kd>
   <minDepth>0.001</minDepth>
   <maxVel>0.1</maxVel>
@@ -46,16 +44,30 @@
 </gazebo>
 
 <gazebo>
-  <plugin filename="libgazebo_ros2_control.so" name="gazebo_ros2_control">
-    <parameters>$(find controlbot_controllers)/config/controlbot_controller.yaml</parameters>
-  </plugin>
+  <!-- ROS 2 Humble -->
+  <xacro:if value="$(arg is_ignition)">
+    <plugin filename="ign_ros2_control-system" name="ign_ros2_control::IgnitionROS2ControlPlugin">
+      <parameters>$(find controlbot_controllers)/config/controlbot_controller.yaml</parameters>
+    </plugin>
+    <plugin filename="ignition-gazebo-imu-system" name="ignition::gazebo::systems::Imu">
+    </plugin>
+  </xacro:if>
+  <xacro:unless value="$(arg is_ignition)">
+    <plugin filename="gz_ros2_control-system" name="gz_ros2_control::GazeboSimROS2ControlPlugin">
+      <parameters>$(find controlbot_controllers)/config/controlbot_controller.yaml</parameters>
+    </plugin>
+    <plugin filename="gz-sim-imu-system" name="gz::sim::systems::Imu">
+    </plugin>
+  </xacro:unless>
 </gazebo>
+  
 
-
-<gazebo reference="imu_link_1">
+  <gazebo reference="imu_link_1">
     <sensor name="imu" type="imu">
         <always_on>true</always_on>
         <update_rate>100</update_rate>
+        <gz_frame_id>imu_link_1</gz_frame_id>
+        <topic>imu</topic>
         <imu>
           <angular_velocity>
             <x>
@@ -98,7 +110,6 @@
             </z>
           </linear_acceleration>
         </imu>
-        <plugin name="imu" filename="libgazebo_ros_imu_sensor.so"/>
     </sensor>
   </gazebo>
 
