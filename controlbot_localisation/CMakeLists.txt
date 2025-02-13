@@ -16,10 +16,6 @@ find_package(sensor_msgs REQUIRED)
 ament_python_install_package(${PROJECT_NAME})
 
 
-install(
-  DIRECTORY include
-  DESTINATION include
-)
 
 install(
   DIRECTORY launch config

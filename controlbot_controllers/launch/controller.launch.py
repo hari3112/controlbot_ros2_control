@@ -11,7 +11,7 @@ def generate_launch_description():
         default_value="True",
     )
     using_python_arg=DeclareLaunchArgument(
-        "using_python",
+        "use_python",
         default_value="True"
     )
     
@@ -26,12 +26,12 @@ def generate_launch_description():
     )
     
     using_simple_controller_arg=DeclareLaunchArgument(
-        "using_simple_controller",
+        "use_simple_controller",
         default_value="True"
     )
     use_sim_time = LaunchConfiguration("use_sim_time")
-    using_simple_controller=LaunchConfiguration("using_simple_controller")
-    using_python=LaunchConfiguration("using_python")
+    using_simple_controller=LaunchConfiguration("use_simple_controller")
+    using_python=LaunchConfiguration("use_python")
     wheel_radius=LaunchConfiguration("wheel_radius")
     wheel_separation=LaunchConfiguration("wheel_separation")
     

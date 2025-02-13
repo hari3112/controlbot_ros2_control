@@ -8,16 +8,21 @@ from ament_index_python.packages import get_package_share_directory
 
 def generate_launch_description():
     
-    controlbot_description=get_package_share_directory("controlbot_1_imu_description")
     
-    robot_description=ParameterValue(Command([
-        "xacro",
-        os.path.join(controlbot_description,"urdf","controlbot_1_imu.xacro"),
-        "is_sim := False"
-    ]),
-    value_type=str            
+    robot_description = ParameterValue(
+        Command(
+            [
+                "xacro ",
+                os.path.join(
+                    get_package_share_directory("controlbot_1_imu_description"),
+                    "urdf",
+                    "controlbot_1_imu.xacro",
+                ),
+                " is_sim:=False"
+            ]
+        ),
+        value_type=str,
     )
-    
     robot_state_publisher=Node(
         package="robot_state_publisher",
         executable="robot_state_publisher",
