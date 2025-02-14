@@ -15,20 +15,29 @@ def generate_launch_description():
     
     controller = IncludeLaunchDescription(
         os.path.join(
-            get_package_share_directory("controlbot_controllers"),
+            get_package_share_directory("controlbot_controller"),
             "launch",
             "controller.launch.py"
         ),
         launch_arguments={
             "use_simple_controller": "False",
-            "use_python": "True"
+            "use_python": "False"
         }.items(),
     )
     
-  
+    joystick = IncludeLaunchDescription(
+        os.path.join(
+            get_package_share_directory("controlbot_controller"),
+            "launch",
+            "joystick_teleop.launch.py"
+        ),
+        launch_arguments={
+            "use_sim_time": "True"
+        }.items()
+    )
     
     return LaunchDescription([
         gazebo,
         controller,
-       
+        joystick,
     ])

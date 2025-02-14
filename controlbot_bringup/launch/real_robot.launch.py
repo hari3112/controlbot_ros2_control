@@ -16,16 +16,26 @@ def generate_launch_description():
     
     controller = IncludeLaunchDescription(
         os.path.join(
-            get_package_share_directory("controlbot_controllers"),
+            get_package_share_directory("controlbot_controller"),
             "launch",
             "controller.launch.py"
         ),
         launch_arguments={
             "use_simple_controller": "False",
             "use_python": "False"
-        }.items()
+        }.items(),
     )
     
+    joystick = IncludeLaunchDescription(
+        os.path.join(
+            get_package_share_directory("controlbot_controller"),
+            "launch",
+            "joystick_teleop.launch.py"
+        ),
+        launch_arguments={
+            "use_sim_time": "False"
+        }.items()
+    )
 
     imu_driver_node = Node(
         package="controlbot_firmware",
@@ -35,5 +45,6 @@ def generate_launch_description():
     return LaunchDescription([
         hardware_interface,
         controller,
+        joystick,
         imu_driver_node,
     ])
