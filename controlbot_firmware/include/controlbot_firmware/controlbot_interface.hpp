@@ -16,11 +16,11 @@ namespace controlbot_firmware
 
 using CallbackReturn = rclcpp_lifecycle::node_interfaces::LifecycleNodeInterface::CallbackReturn;
 
-class controlbotInterface : public hardware_interface::SystemInterface
+class ControlbotInterface : public hardware_interface::SystemInterface
 {
 public:
-  controlbotInterface();
-  virtual ~controlbotInterface();
+  ControlbotInterface();
+  virtual ~ControlbotInterface();
 
   // Implementing rclcpp_lifecycle::node_interfaces::LifecycleNodeInterface
   CallbackReturn on_activate(const rclcpp_lifecycle::State &) override;
@@ -41,7 +41,7 @@ private:
   std::vector<double> velocity_states_;
   rclcpp::Time last_run_;
 };
-}  
+}
 
 
 #endif  

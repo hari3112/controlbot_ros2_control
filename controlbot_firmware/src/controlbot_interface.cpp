@@ -5,12 +5,12 @@
 
 namespace controlbot_firmware
 {
-controlbotInterface::controlbotInterface()
+ControlbotInterface::ControlbotInterface()
 {
 }
 
 
-controlbotInterface::~controlbotInterface()
+ControlbotInterface::~ControlbotInterface()
 {
   if (arduino_.IsOpen())
   {
@@ -20,14 +20,14 @@ controlbotInterface::~controlbotInterface()
     }
     catch (...)
     {
-      RCLCPP_FATAL_STREAM(rclcpp::get_logger("controlbotInterface"),
+      RCLCPP_FATAL_STREAM(rclcpp::get_logger("ControlbotInterface"),
                           "Something went wrong while closing connection with port " << port_);
     }
   }
 }
 
 
-CallbackReturn controlbotInterface::on_init(const hardware_interface::HardwareInfo &hardware_info)
+CallbackReturn ControlbotInterface::on_init(const hardware_interface::HardwareInfo &hardware_info)
 {
   CallbackReturn result = hardware_interface::SystemInterface::on_init(hardware_info);
   if (result != CallbackReturn::SUCCESS)
@@ -41,7 +41,7 @@ CallbackReturn controlbotInterface::on_init(const hardware_interface::HardwareIn
   }
   catch (const std::out_of_range &e)
   {
-    RCLCPP_FATAL(rclcpp::get_logger("controlbotInterface"), "No Serial Port provided! Aborting");
+    RCLCPP_FATAL(rclcpp::get_logger("ControlbotInterface"), "No Serial Port provided! Aborting");
     return CallbackReturn::FAILURE;
   }
 
@@ -54,7 +54,7 @@ CallbackReturn controlbotInterface::on_init(const hardware_interface::HardwareIn
 }
 
 
-std::vector<hardware_interface::StateInterface> controlbotInterface::export_state_interfaces()
+std::vector<hardware_interface::StateInterface> ControlbotInterface::export_state_interfaces()
 {
   std::vector<hardware_interface::StateInterface> state_interfaces;
 
@@ -71,7 +71,7 @@ std::vector<hardware_interface::StateInterface> controlbotInterface::export_stat
 }
 
 
-std::vector<hardware_interface::CommandInterface> controlbotInterface::export_command_interfaces()
+std::vector<hardware_interface::CommandInterface> ControlbotInterface::export_command_interfaces()
 {
   std::vector<hardware_interface::CommandInterface> command_interfaces;
 
@@ -86,9 +86,9 @@ std::vector<hardware_interface::CommandInterface> controlbotInterface::export_co
 }
 
 
-CallbackReturn controlbotInterface::on_activate(const rclcpp_lifecycle::State &)
+CallbackReturn ControlbotInterface::on_activate(const rclcpp_lifecycle::State &)
 {
-  RCLCPP_INFO(rclcpp::get_logger("controlbotInterface"), "Starting robot hardware ...");
+  RCLCPP_INFO(rclcpp::get_logger("ControlbotInterface"), "Starting robot hardware ...");
 
   // Reset commands and states
   velocity_commands_ = { 0.0, 0.0 };
@@ -102,20 +102,20 @@ CallbackReturn controlbotInterface::on_activate(const rclcpp_lifecycle::State &)
   }
   catch (...)
   {
-    RCLCPP_FATAL_STREAM(rclcpp::get_logger("controlbotInterface"),
+    RCLCPP_FATAL_STREAM(rclcpp::get_logger("ControlbotInterface"),
                         "Something went wrong while interacting with port " << port_);
     return CallbackReturn::FAILURE;
   }
 
-  RCLCPP_INFO(rclcpp::get_logger("controlbotInterface"),
+  RCLCPP_INFO(rclcpp::get_logger("ControlbotInterface"),
               "Hardware started, ready to take commands");
   return CallbackReturn::SUCCESS;
 }
 
 
-CallbackReturn controlbotInterface::on_deactivate(const rclcpp_lifecycle::State &)
+CallbackReturn ControlbotInterface::on_deactivate(const rclcpp_lifecycle::State &)
 {
-  RCLCPP_INFO(rclcpp::get_logger("controlbotInterface"), "Stopping robot hardware ...");
+  RCLCPP_INFO(rclcpp::get_logger("ControlbotInterface"), "Stopping robot hardware ...");
 
   if (arduino_.IsOpen())
   {
@@ -125,17 +125,17 @@ CallbackReturn controlbotInterface::on_deactivate(const rclcpp_lifecycle::State 
     }
     catch (...)
     {
-      RCLCPP_FATAL_STREAM(rclcpp::get_logger("controlbotInterface"),
+      RCLCPP_FATAL_STREAM(rclcpp::get_logger("ControlbotInterface"),
                           "Something went wrong while closing connection with port " << port_);
     }
   }
 
-  RCLCPP_INFO(rclcpp::get_logger("controlbotInterface"), "Hardware stopped");
+  RCLCPP_INFO(rclcpp::get_logger("ControlbotInterface"), "Hardware stopped");
   return CallbackReturn::SUCCESS;
 }
 
 
-hardware_interface::return_type controlbotInterface::read(const rclcpp::Time &,
+hardware_interface::return_type ControlbotInterface::read(const rclcpp::Time &,
                                                           const rclcpp::Duration &)
 {
   // Interpret the string
@@ -168,7 +168,7 @@ hardware_interface::return_type controlbotInterface::read(const rclcpp::Time &,
 }
 
 
-hardware_interface::return_type controlbotInterface::write(const rclcpp::Time &,
+hardware_interface::return_type ControlbotInterface::write(const rclcpp::Time &,
                                                           const rclcpp::Duration &)
 {
   // Implement communication protocol with the Arduino
@@ -204,7 +204,7 @@ hardware_interface::return_type controlbotInterface::write(const rclcpp::Time &,
   }
   catch (...)
   {
-    RCLCPP_ERROR_STREAM(rclcpp::get_logger("controlbotInterface"),
+    RCLCPP_ERROR_STREAM(rclcpp::get_logger("ControlbotInterface"),
                         "Something went wrong while sending the message "
                             << message_stream.str() << " to the port " << port_);
     return hardware_interface::return_type::ERROR;
@@ -214,4 +214,4 @@ hardware_interface::return_type controlbotInterface::write(const rclcpp::Time &,
 }
 }  // namespace bumperbot_firmware
 
-PLUGINLIB_EXPORT_CLASS(controlbot_firmware::controlbotInterface, hardware_interface::SystemInterface)
+PLUGINLIB_EXPORT_CLASS(controlbot_firmware::ControlbotInterface, hardware_interface::SystemInterface)

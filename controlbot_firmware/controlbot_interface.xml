@@ -1,10 +1,10 @@
 <library path="controlbot_firmware">
-    <class name="controlbot_firmware/controlInterface"
-      type="controlbot_firmware::controlbotInterface"
+    <class name="controlbot_firmware/ControlbotInterface"
+      type="controlbot_firmware::ControlbotInterface"
       base_class_type="hardware_interface::SystemInterface"
     >
       <description>
-        controlbot Hardware Interface
+        Controlbot Hardware Interface
       </description>
     </class>
   </library>
