@@ -21,7 +21,7 @@
     <geometry>
       <mesh filename="file://$(find controlbot_1_imu_description)/meshes/base_link.stl" scale="0.001 0.001 0.001"/>
     </geometry>
-    <material name="red"/>
+    <material name=""/>
   </visual>
   <collision>
     <origin xyz="0.065 0 -0.056" rpy="0 0 0"/>
@@ -29,7 +29,7 @@
       <mesh filename="file://$(find controlbot_1_imu_description)/meshes/base_link.stl" scale="0.001 0.001 0.001"/>
     </geometry>
   </collision>
-  <material name="red"/>
+  <material name=""/>
 </link>
 
 <link name="wheel_left_link_1">
@@ -43,14 +43,14 @@
     <geometry>
       <mesh filename="file://$(find controlbot_1_imu_description)/meshes/wheel_left_link_1.stl" scale="0.001 0.001 0.001"/>
     </geometry>
-    <material name="red"/>
+    <material name=""/>
   </visual>
   <collision>
     <origin xyz="0.06525 -0.133 -0.056" rpy="0 0 0"/>
     <geometry>
       <mesh filename="file://$(find controlbot_1_imu_description)/meshes/wheel_left_link_1.stl" scale="0.001 0.001 0.001"/>
     </geometry>
-    <material name="red"/>
+    <material name=""/>
   </collision>
 </link>
 
@@ -65,14 +65,14 @@
     <geometry>
       <mesh filename="file://$(find controlbot_1_imu_description)/meshes/wheel_right_link_1.stl" scale="0.001 0.001 0.001"/>
     </geometry>
-    <material name="red"/>
+    <material name=""/>
   </visual>
   <collision>
     <origin xyz="0.06525 0.133 -0.056" rpy="0 0 0"/>
     <geometry>
       <mesh filename="file://$(find controlbot_1_imu_description)/meshes/wheel_right_link_1.stl" scale="0.001 0.001 0.001"/>
     </geometry>
-    <material name="red"/>
+    <material name=""/>
   </collision>
 </link>
 
@@ -87,14 +87,14 @@
     <geometry>
       <mesh filename="file://$(find controlbot_1_imu_description)/meshes/imu_link_1.stl" scale="0.001 0.001 0.001"/>
     </geometry>
-    <material name="red"/>
+    <material name=""/>
   </visual>
   <collision>
     <origin xyz="0 -0.076 -0.123" rpy="0 0 3.14"/>
     <geometry>
       <mesh filename="file://$(find controlbot_1_imu_description)/meshes/imu_link_1.stl" scale="0.001 0.001 0.001"/>
     </geometry>
-    <material name="red"/>
+    <material name=""/>
   </collision>
 </link>
 

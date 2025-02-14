@@ -47,14 +47,14 @@
   <!-- ROS 2 Humble -->
   <xacro:if value="$(arg is_ignition)">
     <plugin filename="ign_ros2_control-system" name="ign_ros2_control::IgnitionROS2ControlPlugin">
-      <parameters>$(find controlbot_controllers)/config/controlbot_controller.yaml</parameters>
+      <parameters>$(find controlbot_controller)/config/controlbot_controllers.yaml</parameters>
     </plugin>
     <plugin filename="ignition-gazebo-imu-system" name="ignition::gazebo::systems::Imu">
     </plugin>
   </xacro:if>
   <xacro:unless value="$(arg is_ignition)">
     <plugin filename="gz_ros2_control-system" name="gz_ros2_control::GazeboSimROS2ControlPlugin">
-      <parameters>$(find controlbot_controllers)/config/controlbot_controller.yaml</parameters>
+      <parameters>$(find controlbot_controller)/config/controlbot_controllers.yaml</parameters>
     </plugin>
     <plugin filename="gz-sim-imu-system" name="gz::sim::systems::Imu">
     </plugin>
