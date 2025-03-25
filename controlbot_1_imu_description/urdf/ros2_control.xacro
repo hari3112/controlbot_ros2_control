@@ -23,8 +23,8 @@
         <!-- ros2_control Real Robot -->
         <xacro:unless value="$(arg is_sim)">
             <hardware>
-                <plugin>controlbot_firmware/controlbotInterface</plugin>
-                <param name="port">/dev/ttyACM0</param>
+                <plugin>controlbot_firmware/ControlbotInterface</plugin>
+                <param name="port">/dev/ttyUSB0</param>
             </hardware>
         </xacro:unless>
         
