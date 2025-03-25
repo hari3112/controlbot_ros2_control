@@ -42,12 +42,12 @@ double left_wheel_meas_vel = 0.0;     // rad/s
 double right_wheel_cmd = 0.0;             // 0-255
 double left_wheel_cmd = 0.0;              // 0-255
 // Tuning
-double Kp_r = 11.5;
-double Ki_r = 7.5;
-double Kd_r = 0.1;
-double Kp_l = 12.8;
-double Ki_l = 8.3;
-double Kd_l = 0.1;
+double Kp_r = 15.0;
+double Ki_r = 0.0;
+double Kd_r = 0.0;
+double Kp_l = 10.0;
+double Ki_l = 0.0;
+double Kd_l = 0.0;
 // Controller
 PID rightMotor(&right_wheel_meas_vel, &right_wheel_cmd, &right_wheel_cmd_vel, Kp_r, Ki_r, Kd_r, DIRECT);
 PID leftMotor(&left_wheel_meas_vel, &left_wheel_cmd, &left_wheel_cmd_vel, Kp_l, Ki_l, Kd_l, DIRECT);
@@ -171,8 +171,8 @@ void loop() {
   unsigned long current_millis = millis();
   if(current_millis - last_millis >= interval)
   {
-    right_wheel_meas_vel = (10 * right_encoder_counter * (60.0/385.0)) * 0.10472;
-    left_wheel_meas_vel = (10 * left_encoder_counter * (60.0/385.0)) * 0.10472;
+    right_wheel_meas_vel = (10 * right_encoder_counter * (60.0/420.0)) * 0.10472;
+    left_wheel_meas_vel = (10 * left_encoder_counter * (60.0/420.0)) * 0.10472;
     
     rightMotor.Compute();
     leftMotor.Compute();
