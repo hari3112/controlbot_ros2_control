@@ -35,11 +35,11 @@ controlbot_controller:
     linear:
       x:
         has_velocity_limits    : true
-        max_velocity           : 1.0  # m/s
-        min_velocity           : -1.0 # m/s
+        max_velocity           : 1.5  # m/s
+        min_velocity           : -0.85 # m/s
         has_acceleration_limits: true
-        max_acceleration       : 5.0  # m/s^2
-        min_acceleration       : -5.0 # m/s^2
+        max_acceleration       : 8.0  # m/s^2
+        min_acceleration       : -15.0 # m/s^2
         has_jerk_limits        : false
         max_jerk               : 2.5  # m/s^3
     angular:
