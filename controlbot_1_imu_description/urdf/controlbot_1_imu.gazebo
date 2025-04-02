@@ -16,7 +16,8 @@
   <material>${body_color}</material>
   <mu1>10000.0</mu1>
   <mu2>10000.0</mu2>
-  <kp>10000.0</kp>
+  <kp>100.0</kp>
+  <ki>10.0</ki>
   <kd>10.0</kd>
   <minDepth>0.001</minDepth>
   <maxVel>0.1</maxVel>
@@ -29,6 +30,7 @@
   <mu1>10000.0</mu1>
   <mu2>10000.0</mu2>
   <kp>10000.0</kp>
+  <ki>10.0</ki>
   <kd>10.0</kd>
   <minDepth>0.001</minDepth>
   <maxVel>0.1</maxVel>
@@ -124,7 +126,7 @@
       <always_on>true</always_on>
       <visualize>true</visualize>
       <topic>scan</topic>
-      <update_rate>5</update_rate>
+      <update_rate>100</update_rate>
       <gz_frame_id>laser_link</gz_frame_id>
       <lidar>
         <scan>
