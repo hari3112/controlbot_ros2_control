@@ -20,8 +20,8 @@ def generate_launch_description():
         executable="static_transform_publisher",
         arguments=["--x", "0.065", "--y", "-0.075","--z", "0.12314",
                    "--qx", "0", "--qy", "0", "--qz", "0", "--qw", "1",
-                   "--frame-id", "base_footprint_ekf",
-                   "--child-frame-id", "imu_link_ekf"],
+                   "--frame-id", "base_footprint",
+                   "--child-frame-id", "imu_link_1"],
     )
 
     robot_localization = Node(

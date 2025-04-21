@@ -35,7 +35,16 @@ def generate_launch_description():
         }.items(),
     )
     
-
+    joystick = IncludeLaunchDescription(
+        os.path.join(
+            get_package_share_directory("controlbot_controller"),
+            "launch",
+            "joystick_teleop.launch.py"
+        ),
+        launch_arguments={
+            "use_sim_time": "True"
+        }.items()
+    )
 
     localization = IncludeLaunchDescription(
         os.path.join(
@@ -45,7 +54,14 @@ def generate_launch_description():
         ),
         condition=UnlessCondition(use_slam)
     )
-
+    ekf_odom_filtered = IncludeLaunchDescription(
+        os.path.join(
+            get_package_share_directory("controlbot_localization"),
+            "launch",
+            "local_localization.launch.py"
+        ),
+    )
+    
     slam = IncludeLaunchDescription(
         os.path.join(
             get_package_share_directory("controlbot_mapping"),
@@ -54,6 +70,8 @@ def generate_launch_description():
         ),
         condition=IfCondition(use_slam)
     )
+
+    
 
     rviz_localization = Node(
         package="rviz2",
@@ -75,7 +93,7 @@ def generate_launch_description():
         arguments=["-d", os.path.join(
                 get_package_share_directory("controlbot_mapping"),
                 "rviz",
-                "slam.rviz"
+                "slam1.rviz"
             )
         ],
         output="screen",
@@ -87,8 +105,10 @@ def generate_launch_description():
         use_slam_arg,
         gazebo,
         controller,
+        joystick,
         localization,
         slam,
+        ekf_odom_filtered,
         rviz_localization,
         rviz_slam
     ])

@@ -16,7 +16,7 @@ controlbot_controller:
     use_stamped_vel: true
     left_wheel_names: ['wheel_left_joint']
     right_wheel_names: ['wheel_right_joint']
-    publish_rate: 100.0
+    publish_rate: 50.0
     pose_covariance_diagonal: [0.001, 0.001, 1.0e-3, 1.0e-3, 1.0e-3, 0.01]
     twist_covariance_diagonal: [0.001, 0.001, 1.0e-3, 1.0e-3, 1.0e-3, 0.01]
 
@@ -30,28 +30,29 @@ controlbot_controller:
     base_frame_id: base_footprint
     publish_limited_velocity: true
     publish_wheel_data: true
-    enable_odom_tf: true
+    enable_odom_tf: false
 
     linear:
       x:
         has_velocity_limits    : true
-        max_velocity           : 1.5  # m/s
-        min_velocity           : -0.85 # m/s
+        max_velocity           : 0.5  # m/s
+        min_velocity           : -0.5 # m/s
         has_acceleration_limits: true
-        max_acceleration       : 8.0  # m/s^2
-        min_acceleration       : -15.0 # m/s^2
+        max_acceleration       : 0.7  # m/s^2
+        min_acceleration       : -0.7 # m/s^2
         has_jerk_limits        : false
-        max_jerk               : 2.5  # m/s^3
+        max_jerk               : 5.0  # m/s^3
     angular:
       z:
         has_velocity_limits    : true
-        max_velocity           : 31.2  # rad/s
-        min_velocity           : -31.2  # rad/s
+        max_velocity           : 8.5  # rad/s
+        min_velocity           : -8.5  # rad/s
         has_acceleration_limits: true
-        max_acceleration       : 31.2 # rad/s^2
-        min_acceleration       : -31.2   # rad/s^2
+        max_acceleration       : 8.5  # rad/s^2
+        min_acceleration       : -8.5   # rad/s^2
         has_jerk_limits        : false
-        max_jerk               : 2.5  # rad/s^3 
+        max_jerk               : 2.5  # rad/s^3
+
 
 simple_velocity_controller:
   ros__parameters:

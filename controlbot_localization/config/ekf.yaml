@@ -3,7 +3,7 @@ ekf_filter_node:
       # The frequency, in Hz, at which the filter will output a position estimate. Note that the filter will not begin
       # computation until it receives at least one message from one of the inputs. It will then run continuously at the
       # frequency specified here, regardless of whether it receives more measurements. Defaults to 30 if unspecified.
-      frequency: 5.0
+      frequency: 0.1
 
       # ekf_localization_node and ukf_localization_node both use a 3D omnidirectional motion model. If this parameter is
       # set to true, no 3D information will be used in your state estimate. Use this if you are operating in a planar
@@ -35,7 +35,7 @@ ekf_filter_node:
       #         estimation node from robot_localization! However, that instance should *not* fuse the global data.
       map_frame: map              # Defaults to "map" if unspecified
       odom_frame: odom            # Defaults to "odom" if unspecified
-      base_link_frame: base_footprint_ekf  # Defaults to "base_link" if unspecified
+      base_link_frame: base_footprint  # Defaults to "base_link" if unspecified
       world_frame: odom           # Defaults to the value of odom_frame if unspecified
       
 
@@ -53,7 +53,7 @@ ekf_filter_node:
       imu0_config: [false, false, false,
                     false, false, true,
                     false, false, false,
-                    false, false, true,
+                    true, true, true,
                     true,  false, false]
 
       imu0_differential: true
@@ -64,7 +64,7 @@ ekf_filter_node:
       # sensor_msgs/Imu). To add an input, simply append the next number in the sequence to its "base" name, e.g., odom0,
       # odom1, twist0, twist1, imu0, imu1, imu2, etc. The value should be the topic name. These parameters obviously have no
       # default values, and must be specified.
-      odom0: controlbot_controller/odom_noisy
+      odom0: controlbot_controller/odom
 
       # Each sensor reading updates some or all of the filter's state. These options give you greater control over which
       # values from each measurement are fed to the filter. For example, if you have an odometry message as input, but only
@@ -75,7 +75,7 @@ ekf_filter_node:
       # if unspecified, effectively making this parameter required for each sensor.
       odom0_config: [false, false, false,
                      false, false, false,
-                     true,  false,  false,
+                     true,  true,  true,
                      false, false, false,
                      false, false, false]
 

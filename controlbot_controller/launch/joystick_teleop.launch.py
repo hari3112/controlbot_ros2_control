@@ -40,8 +40,17 @@ def generate_launch_description():
         launch_arguments={
             "cmd_vel_out": "controlbot_controller/cmd_vel_unstamped",
             "config_locks": os.path.join(controlbot_controller_pkg, "config", "twist_mux_locks.yaml"),
+            "config_topics": os.path.join(controlbot_controller_pkg, "config", "twist_mux_topics.yaml"),
+            "config_joy": os.path.join(controlbot_controller_pkg, "config", "twist_mux_joy.yaml"),
             "use_sim_time": LaunchConfiguration("use_sim_time"),
         }.items(),
+    )
+
+    twist_relay_node = Node(
+        package="controlbot_controller",
+        executable="twist_relay.py",
+        name="twist_relay",
+        parameters=[{"use_sim_time": LaunchConfiguration("use_sim_time")}]
     )
 
     
@@ -51,6 +60,6 @@ def generate_launch_description():
             joy_teleop,
             joy_node,
             twist_mux_launch,
-            
+            twist_relay_node
         ]
     )
