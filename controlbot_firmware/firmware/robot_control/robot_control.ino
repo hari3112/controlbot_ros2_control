@@ -1,18 +1,18 @@
 #include <PID_v1.h>
 
 // L298N H-Bridge Connection PINs
-#define L298N_enA 9  // PWM
-#define L298N_enB 11  // PWM
-#define L298N_in4 8  // Dir Motor B
-#define L298N_in3 7  // Dir Motor B
-#define L298N_in2 13  // Dir Motor A
-#define L298N_in1 12  // Dir Motor A
+#define L298N_enA 13  // PWM
+#define L298N_enB 12  // PWM
+#define L298N_in4 25// Dir Motor B
+#define L298N_in3 26  // Dir Motor B
+#define L298N_in2 27  // Dir Motor A
+#define L298N_in1 14  // Dir Motor A
 
 // Wheel Encoders Connection PINs
-#define right_encoder_phaseA 3  // Interrupt 
-#define right_encoder_phaseB 5  
-#define left_encoder_phaseA 2   // Interrupt
-#define left_encoder_phaseB 4
+#define right_encoder_phaseA 33  // Interrupt 
+#define right_encoder_phaseB 32  
+#define left_encoder_phaseA 35   // Interrupt
+#define left_encoder_phaseB 34
 
 // Encoders
 unsigned int right_encoder_counter = 0;
@@ -42,12 +42,12 @@ double left_wheel_meas_vel = 0.0;     // rad/s
 double right_wheel_cmd = 0.0;             // 0-255
 double left_wheel_cmd = 0.0;              // 0-255
 // Tuning
-double Kp_r = 15.0;
-double Ki_r = 0.0;
-double Kd_r = 0.0;
-double Kp_l = 10.0;
-double Ki_l = 0.0;
-double Kd_l = 0.0;
+double Kp_r = 11.5;
+double Ki_r = 7.5;
+double Kd_r = 0.1;
+double Kp_l = 12.8;
+double Ki_l = 8.3;
+double Kd_l = 0.1;
 // Controller
 PID rightMotor(&right_wheel_meas_vel, &right_wheel_cmd, &right_wheel_cmd_vel, Kp_r, Ki_r, Kd_r, DIRECT);
 PID leftMotor(&left_wheel_meas_vel, &left_wheel_cmd, &left_wheel_cmd_vel, Kp_l, Ki_l, Kd_l, DIRECT);
@@ -171,8 +171,8 @@ void loop() {
   unsigned long current_millis = millis();
   if(current_millis - last_millis >= interval)
   {
-    right_wheel_meas_vel = (10 * right_encoder_counter * (60.0/420.0)) * 0.10472;
-    left_wheel_meas_vel = (10 * left_encoder_counter * (60.0/420.0)) * 0.10472;
+    right_wheel_meas_vel = (10 * right_encoder_counter * (60.0/210.0)) * 0.10472;
+    left_wheel_meas_vel = (10 * left_encoder_counter * (60.0/210.0)) * 0.10472;
     
     rightMotor.Compute();
     leftMotor.Compute();

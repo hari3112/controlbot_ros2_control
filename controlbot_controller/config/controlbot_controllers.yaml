@@ -16,7 +16,7 @@ controlbot_controller:
     use_stamped_vel: true
     left_wheel_names: ['wheel_left_joint']
     right_wheel_names: ['wheel_right_joint']
-    publish_rate: 50.0
+    publish_rate: 100.0
     pose_covariance_diagonal: [0.001, 0.001, 1.0e-3, 1.0e-3, 1.0e-3, 0.01]
     twist_covariance_diagonal: [0.001, 0.001, 1.0e-3, 1.0e-3, 1.0e-3, 0.01]
 
@@ -30,13 +30,13 @@ controlbot_controller:
     base_frame_id: base_footprint
     publish_limited_velocity: true
     publish_wheel_data: true
-    enable_odom_tf: false
+    enable_odom_tf: true
 
     linear:
       x:
         has_velocity_limits    : true
-        max_velocity           : 0.5  # m/s
-        min_velocity           : -0.5 # m/s
+        max_velocity           : 0.7  # m/s
+        min_velocity           : -0.7 # m/s
         has_acceleration_limits: true
         max_acceleration       : 0.7  # m/s^2
         min_acceleration       : -0.7 # m/s^2
