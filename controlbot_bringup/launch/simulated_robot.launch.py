@@ -71,34 +71,29 @@ def generate_launch_description():
         condition=IfCondition(use_slam)
     )
 
-    
 
-    rviz_localization = Node(
-        package="rviz2",
-        executable="rviz2",
-        arguments=["-d", os.path.join(
-                get_package_share_directory("controlbot_localization"),
-                "rviz",
-                "global_localization.rviz"
-            )
-        ],
-        output="screen",
-        parameters=[{"use_sim_time": True}],
-        condition=UnlessCondition(use_slam)
+    navigation = IncludeLaunchDescription(
+        os.path.join(
+            get_package_share_directory("controlbot_navigation"),
+            "launch",
+            "navigation.launch.py"
+        ),
     )
 
-    rviz_slam = Node(
+    
+
+
+    rviz = Node(
         package="rviz2",
         executable="rviz2",
         arguments=["-d", os.path.join(
-                get_package_share_directory("controlbot_mapping"),
+                get_package_share_directory("nav2_bringup"),
                 "rviz",
-                "slam1.rviz"
+                "nav2_default_view.rviz"
             )
         ],
         output="screen",
         parameters=[{"use_sim_time": True}],
-        condition=IfCondition(use_slam)
     )
     
     return LaunchDescription([
@@ -109,6 +104,6 @@ def generate_launch_description():
         localization,
         slam,
         ekf_odom_filtered,
-        rviz_localization,
-        rviz_slam
+        navigation,
+        rviz
     ])
